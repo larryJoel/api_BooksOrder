@@ -17,11 +17,16 @@ namespace LibreriaApi
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
 
-            
+            modelBuilder.Entity<Prestamo>(prestamo=>{
+                prestamo.ToTable("Pedido");
+                prestamo.HasKey(p=>p.Id);
+                prestamo.Property(p=>p.IdLibro).IsRequired();
+            });
+
 
             List<Proveedor>proveedores = new List<Proveedor>();
-            proveedores.Add(new Proveedor{Id =Guid.Parse("fb28a544-2b63-4d33-b031-302c9371989d"), Nombre="Libreria Sanitas",Direccion="C.A.B.A.",Email="sanitas@gmail.com", Telefono="48484684618"});
-            proveedores.Add(new Proveedor{Id =Guid.Parse("fb28a544-2b63-4d33-b031-302c9372587d"), Nombre="Editorial Santander",Direccion="C.A.B.A.",Email="santander@gmail.com", Telefono="484846846891"});
+            proveedores.Add(new Proveedor{Id =Guid.Parse("fb28a544-2b63-4d33-b031-302c9371989d"), Nombre="Libreria Sanitas",Direccion="C.A.B.A.",Email="sanitas@gmail.com", Telefono="48484684618", FechaCreacion=DateTime.Now});
+            proveedores.Add(new Proveedor{Id =Guid.Parse("fb28a544-2b63-4d33-b031-302c9372587d"), Nombre="Editorial Santander",Direccion="C.A.B.A.",Email="santander@gmail.com", Telefono="484846846891", FechaCreacion=DateTime.Now});
 
             modelBuilder.Entity<Proveedor>(proveedor=>{
                 proveedor.ToTable("proveedor");
